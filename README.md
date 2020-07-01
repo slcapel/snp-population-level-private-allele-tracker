@@ -3,7 +3,7 @@
 
 This script was designed to detect private alleles among a group of "populations of origin" and their movement and/or persistence in a population of interest.  Tracking movement and persistence of private alleles is a conservative but precise way to track gene flow into a population of interest over time as well as detect persistence of unique, local variation following introgression.  **This script works exclusively with Stacks v2.0 and later (Rochette et al. 2019) output files.**
 
-![schmatic](?raw=true)
+![schmatic](https://github.com/slcapel/chapter-1-publication-scripts/blob/master/Private%20Allele%20Population%20Schematic.png?raw=true)
 
 This script works by gradually filtering down loci to those sampled across all populations considered containing private alleles among the populations of origin.  The final products of this script are (1) a distribution of the number of private alleles among populations of origin and (2) a distribution of how many of those private alleles are found in the population of origin.
 
