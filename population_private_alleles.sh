@@ -7,11 +7,12 @@
 	# Next run populations excluding the population that should be "recieving" the private alleles while employing the whitelist (-W path_to_file) from the first run (don't apply -r or --min_maf filters) - this allows private alleles to be coded correctly by populations.sumstats.tsv; this run will be refered to as "original populations" or "orig"
 
 
-###INPUTS###
-all=$HOME/data/Stacks/denovo_map/alpha_0.01/data1_multSNP_denovo/Orig_Pops+IL2003_v2.41/Shared_Loci  # location of directory containing "all" populations.sumstats.tsv file
-orig=$HOME/data/Stacks/denovo_map/alpha_0.01/data1_multSNP_denovo/Original_Populations_v2.41  # location of directory containing "orig" populations.sumstats.tsv file
-opn=4   # number of original populations
-popint="IL2003"  # name of population of interest (looking for private alleles from orig populations) as described in your population map
+########################################## INPUTS ##########################################
+all=  # instert the path to the directory containing "all" populations.sumstats.tsv file   #
+orig=  # instert the path to the directory containing "orig" populations.sumstats.tsv file #
+opn=   # inster the number of populations of origin                                        #
+popint=""  # inster the name of population of interest as recorded in your population map  #
+############################################################################################
 
 
 #### Filter populations.sumstats.tsv of original populations to only those loci that contain private alleles ####
@@ -24,7 +25,7 @@ if (( $(cat populations.sumstats.tsv | wc -l) == $(cat populations.sumstats_orig
 then
     echo "        populations.sumstats_orig.Locus_Col.tsv HAS CORRECT NUMBER OF LINES"
 else
-    echo "        SOMETHING WRONG WITH CREATING populations.sumstats_orig.Locus_Col.tsv"
+    echo "        ERROR: INCORRECT NUMBER OF LINES IN populations.sumstats_orig.Locus_Col.tsv"
     exit
 fi
 echo " "
@@ -35,7 +36,7 @@ top=$(head -n 5 $orig/populations.sumstats_orig.Locus_Col.tsv | tail -n 1)
 echo "Creating list of private allele loci..."
 cat populations.sumstats_orig.Locus_Col.tsv | awk '{ if ($18 == 1) {print $1} }' > loci_PA.csv &&
 total_PA=$(cat loci_PA.csv | wc -l)
-echo "        NUMBER OF LOCI SAMPLED IN ORIGIN POPULATIONS WITH PRIVATE ALLELES: $total_PA" &&
+echo "        NUMBER OF LOCI SAMPLED AMONG ORIGIN POPULATIONS CONTAINING PRIVATE ALLELES: $total_PA" &&
 echo " "
 
 ## return populations.sumstats lines for loci with private alleles
@@ -49,9 +50,9 @@ if (($(cat populations.sumstats_orig.PA.tsv | wc -l) == $(expr $total_PA \* $opn
 then
     echo "        CORRECT NUMBER OF LINES IN populations.sumstats_orig.PA.tsv"
 else
-    echo "        SOMETHING WRONG WITH CREATING populations.sumstats_orig.PA.tsv"
-    echo "        NUMBER OF LINES IN populations.sumstats_orig.PA.tsv: $(cat populations.sumstats_orig.PA.tsv | wc -l)"
-    echo "        NUMBER OF LINES THAT THERE SHOULD BE: $(expr $total_PA \* $opn + 1)"
+    echo "        ERROR: INCORRECT NUMBER OF LINES IN populations.sumstats_orig.PA.tsv"
+    echo "        	NUMBER OF LINES IN populations.sumstats_orig.PA.tsv: $(cat populations.sumstats_orig.PA.tsv | wc -l)"
+    echo "        	NUMBER OF LINES THAT THERE SHOULD BE: $(expr $total_PA \* $opn + 1)"
     exit
 fi
 echo " "
@@ -61,9 +62,9 @@ echo "Checking that final private allele sumstats file only has $opn instances o
 lociNE=$(cat populations.sumstats_orig.PA.tsv | cut -f 1 | uniq -c | grep -v -w $opn | wc -l)
 if [ $lociNE == 1 ]
 then
-    echo "        ALL GOOD!!"
+    echo "        FINAL sumstats FILE CONTAINS CORRECT NUMBER OF INSTANCES OF EACH LOCUS"
 else
-    echo "        SOMETHING'S UP!!!"
+    echo "        ERROR: FINAL sumstats FILE CONTAINS INCORRECT NUMBER OF INSTANCES OF EACH LOCUS"
     exit
 fi
 echo " "
@@ -77,7 +78,7 @@ do
     then
 	echo "        ALL GOOD -- ALL P Nuc ARE THE SAME ALLELE ACROSS POPULATIONS"
     else
-	echo "        NOT ALL P Nuc ARE THE SAME ACROSS POPULATIONS"
+	echo "        ERROR: NOT ALL P Nuc ARE THE SAME ACROSS POPULATIONS"
 	exit
     fi
 done
@@ -97,7 +98,7 @@ if (( $(cat populations.sumstats.tsv | wc -l) == $(cat populations.sumstats_all.
 then
     echo "        populations.sumstats_all.Locus_Col.tsv HAS CORRECT NUMBER OF LINES"
 else
-    echo "        SOMETHING WRONG WITH CREATING populations.sumstats_all.Locus_Col.tsv"
+    echo "        ERROR: populations.sumstats_all.Locus_Col.tsv HAS INCORRECT NUMBER OF LINES"
     exit
 fi
 echo " "
@@ -111,7 +112,7 @@ done > populations.sumstats_all.PA_$popint.tsv
 sed -i "1 i $top" populations.sumstats_all.PA_$popint.tsv
 if (( $(cat populations.sumstats_all.PA_$popint.tsv | wc -l) == 0 )) || (( $(cat populations.sumstats_all.PA_$popint.tsv | wc -l) == 1 ))
 then
-    echo "        SOMETHING WRONG WITH CREATING populations.sumstats_all.PA_$popint.tsv"
+    echo "        ERROR: SOMETHING WRONG WITH CREATING populations.sumstats_all.PA_$popint.tsv"
     exit
 fi
 echo "        NUMBER OF PRIVATE ALLELE LOCI WITHIN ORIGIN POPULAITONS SAMPLED IN $popint: $(tail -n +2 populations.sumstats_all.PA_$popint.tsv | wc -l)"
@@ -124,7 +125,7 @@ if (( $(cat populations.sumstats_all.PA_$popint.tsv | wc -l) - 1 == $(cat loci_P
 then
     echo "        loci_PA_$popint.csv HAS CORRECT NUMBER OF LINES"
 else
-    echo "        SOMETHING WRONG WITH CREATING loci_PA_$popint.csv"
+    echo "        ERROR: SOMETHING WRONG WITH CREATING loci_PA_$popint.csv"
     exit
 fi
 echo " "
@@ -145,12 +146,12 @@ done > populations.sumstats_all.PA_$popint.sampled.tsv
 sed -i "1 i $top" populations.sumstats_all.PA_$popint.sampled.tsv
 if (( $(cat populations.sumstats_all.PA_$popint.sampled.tsv | wc -l) == 0 )) || (( $(cat populations.sumstats_all.PA_$popint.sampled.tsv | wc -l) == 1 ))
 then
-    echo "        SOMETHING WRONG WITH CREATING populations.sumstats_all.PA_$popint.sampled.tsv"
+    echo "        ERROR: SOMETHING WRONG WITH CREATING populations.sumstats_all.PA_$popint.sampled.tsv"
     exit
 fi
 echo " "
 
-Make sure P Nuc is the same in all populations sumstats and orig populations sumstats
+## Make sure P Nuc is the same in all populations sumstats and orig populations sumstats
 echo "Checking P Nuc is the same in all populations within origin population loci..."
 tail -n +2 populations.sumstats_all.PA_$popint.sampled.tsv | cut -f 3 | uniq -c | sed -E 's/\s+([0-9]+).+/\1/' | sort -g | uniq > temp.txt
 cat temp.txt | while read line
@@ -159,7 +160,7 @@ do
     then
 	echo "GOOD"
     else
-	echo "NOT ALL P NUC THE SAME AMONG POPULATIONS WIHTIN LOCI"
+	echo "ERROR: NOT ALL P NUC THE SAME AMONG POPULATIONS WIHTIN LOCI"
 	exit
     fi
 done
@@ -178,7 +179,7 @@ echo " "
 
 ## Make sure instances of private alleles are only from loci that are biallelic
 echo "Checking that all private alleles are due to biallelic loci"
-echo "    ---- ALL NON-PRIVATE SHOULD ONLY HAVE '-' WHILE ALL PRIVATE SHOULD HAVE A NUCLEOTIDE ----"
+echo "    -- ALL NON-PRIVATE SHOULD ONLY HAVE '-' WHILE ALL PRIVATE SHOULD HAVE A NUCLEOTIDE --"
 tail -n+2 populations.sumstats_all.PA_$popint.sampled.tsv | awk '{ if ($18 == 1) {print "        Private alleles:"$4} else print "        Non-private:"$4}' | sort -g | uniq -c &&
 echo " "
 echo " "
