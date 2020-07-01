@@ -9,8 +9,10 @@ This script works by gradually filtering down loci to those sampled across all p
 
 ![schmatic](https://github.com/slcapel/chapter-1-publication-scripts/blob/master/Private%20Allele%20SNP%20Filtering%20Schematic.png?raw=true)
 
-## DISCLAIMER: 
+## DISCLAIMERS: 
 This script was designed with data that <ins>did not contain fixed differences</ins> among populations, rather private alleles occurred when a single population of origin was biallelic at a given locus while all other populations were monoallelic.
+
+I highly recommend working on a server with multiple cores - the server I developed this on contained 32 cores and ran in ~1 minute on a large (>300,000) SNP dataset.  This script may be inefficient working on a desktop CPU.
 
 ## Requirements
 * Linux-based environment with bash-5.0 or later
