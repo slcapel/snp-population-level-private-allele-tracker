@@ -3,7 +3,7 @@
 
 This script was designed to detect private alleles among a group of "populations of origin" and their movement and/or persistence in a population of interest.  Tracking movement and persistence of private alleles is a conservative but precise way to track gene flow into a populatin of interest over time as well as detect persistence of unique, local variation following introgression.
 
-![Alt text](/../master/chapter-1-publication-scripts/Private Allele Script Schematic.jpg?raw=true)
+![schmatic](https://github.com/slcapel/chapter-1-publication-scripts/blob/master/Private%20Allele%20Script%20Schematic.jpg?raw=true)
 
 ## DISCLAIMER: 
 This script was designed with data that did not contain fixed differences among populations, rather private alleles occured when a signle population of origin was biallelic at a given locus while all other populations were monoallelic.
