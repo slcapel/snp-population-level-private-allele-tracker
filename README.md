@@ -5,7 +5,7 @@ This script was designed to detect private alleles among a group of "populations
 
 ![schmatic](https://github.com/slcapel/chapter-1-publication-scripts/blob/master/Private%20Allele%20Script%20Schematic.jpg?raw=true)
 
-## DISCLAIMERS: 
+## DISCLAIMER: 
 This script was designed with data that <ins>did not contain fixed differences</ins> among populations, rather private alleles occurred when a single population of origin was biallelic at a given locus while all other populations were monoallelic.
 
 ## Requirements
