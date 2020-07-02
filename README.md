@@ -32,6 +32,6 @@ Once you have completed both runs of _populations_ the script requires manual in
 After you have completed all the required inputs simply run the script from your command line `./population_private_alleles.sh`.  The script will output text on the command line indicating current steps, any errors that may have occurred, and results of the analysis. There are comments throughout the script indicating what each section is executing.
 
 ## Output files:
-* A `.tsv` file with the distribution of private alleles among populations of origin: `$orig/dist.private.all_sampled.tsv`
-* A `.tsv` file with the distribution of private alleles from each population of origin detected in the population of interest: `$orig/dist_PA_into_$popint.tsv` where `$popint` is the string designated to the population of origin
+* A `.tsv` file with the distribution of private alleles among populations of origin: `dist.private.all_sampled.tsv`
+* A `.tsv` file with the distribution of private alleles from each population of origin detected in the population of interest: `dist_PA_into_$popint.tsv` where `$popint` is the string designated to the population of origin
 * The script removes all intermediate/temporary files at the very end.  If you wish to keep any of these files simply delete the corresponding `rm` command(s)
