@@ -166,7 +166,6 @@ do
 	exit
     fi
 done
-rm temp.txt
 
 echo "Making sure P Nuc is the same in $popint and origin populations"
 pop=$(tail -n +2 populations.sumstats_all.PA_$popint.sampled.tsv | head -n 1 | cut -f 2)
@@ -175,8 +174,6 @@ echo "        total P_Nuc in orig pops: $(cat orig_P_Nuc.csv | wc -l)" &&
 tail -n +2 $all/populations.sumstats_all.PA_$popint.tsv | cut -f 3 > $popint.P_Nuc.csv &&
 echo "        total P_Nuc in $popint: $(cat $popint.P_Nuc.csv | wc -l)" &&
 diff -y $popint.P_Nuc.csv orig_P_Nuc.csv | awk '{ if ($1 == $2) {print "MATCH"} else print "DIFF\t"$0 }' | uniq -c
-rm orig_P_Nuc.csv
-rm $popint.P_Nuc.csv
 echo " "
 
 ## Make sure instances of private alleles are only from loci that are biallelic
@@ -210,5 +207,19 @@ paste $popint_Q_Nuc.tsv orig.Q_Nuc.tsv > $popint_Q_Nuc.vs.orig.Q_Nuc.tsv &&
 cat $popint_Q_Nuc.vs.orig.Q_Nuc.tsv | awk '{ if ($2 == $4) {print $3} }' | sort -g | uniq -c > dist_PA_into_$popint.tsv
 echo "MOVEMENT OF PRIVATE ALLELES INTO $popint:"
 cat dist_PA_into_$popint.tsv
+
+# delete temporary files
 rm orig.Q_Nuc.tsv
 rm $popint_Q_Nuc.tsv
+rm $popint_Q_Nuc.vs.orig.Q_Nuc.tsv
+rm $orig/populations.sumstats_orig.Locus_Col.tsv
+rm $orig/loci_PA.csv
+rm $orig/populations.sumstats_orig.PA.tsv
+rm $all/populations.sumstats_all.Locus_Col.tsv
+rm $all/populations.sumstats_all.PA_$popint.tsv
+rm $all/loci_PA_$popint.csv
+rm $orig/populations.sumstats_all.PA_$popint.sampled.tsv
+rm $orig/temp.txt
+rm $orig/orig_P_Nuc.csv
+rm $orig/$popint.P_Nuc.csv
+rm $orig/private_alleles_oirg.tsv
