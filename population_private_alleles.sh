@@ -1,6 +1,6 @@
 #!/bin/bash
-#
-# by Samantha LR Capel <scapel2@illinois.edu> <slr.capel2@gmail.com>
+
+# by Samantha L.R. Capel <scapel2@illinois.edu> <slr.capel2@gmail.com>
 
 # DISCLAIMER: this script was somewhat specific to my data - all of the private alleles in my populations were due to one popultion being biallelic at a locus while all others were monoallelic, so this script DOES NOT WORK WITH FIXED DIFFERENCES among populations
 
