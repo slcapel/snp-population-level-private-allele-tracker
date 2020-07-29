@@ -6,7 +6,7 @@
 
 # PRIOR TO RUNNING THIS SCRIPT you will need to run populations TWICE utilizing the same catalog to look at movement of private alleles into a population of interest as follows:
 	## First run populations on ALL of your populations with the -p (--min-populations) option set to the total number of populations. Create a whitelist from this run (cat populations.sumstats.tsv | grep -v "#" | cut -f 1,4 | uniq > whitelist.tsv) to feed into the second run of populations; this run will be refered to as "all populations" or "all"
-	## Next run populations excluding the population that should be "recieving" the private alleles while employing the whitelist (-W path_to_file) from the first run (don't apply -r or --min_maf filters) - this allows private alleles to be coded correctly by populations.sumstats.tsv; this run will be refered to as "original populations" or "orig"
+	## Next run populations excluding the population that should be "recieving" the private alleles while employing the whitelist (-W path_to_file) from the first run (the -r filter is unnecessary, but the --min_maf filter is still required) - this allows private alleles to be coded correctly by populations.sumstats.tsv; this run will be refered to as "original populations" or "orig"
 
 
 ########################################## INPUTS ##########################################
