@@ -32,7 +32,7 @@ else
 fi
 echo " "
 
-top=$(head -n 5 $orig/populations.sumstats_orig.Locus_Col.tsv | tail -n 1)
+top=$(head $orig/populations.sumstats_orig.Locus_Col.tsv | grep "Locus")
 
 ## create list of loci with private alleles##
 echo "Creating list of private allele loci..."
