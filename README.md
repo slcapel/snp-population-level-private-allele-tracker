@@ -16,7 +16,7 @@ I highly recommend working on a server with multiple cores as this script may be
 
 ## Requirements
 * Linux-based environment with bash-5.0 or later
-* Stacks v2.0 or later
+* Stacks v2.0 or later (works with both de_novo.pl and ref_map.pl)
 
 ## Instructions
 **Prior to running this script** you will need to run the _populations_ program of Stacks **twice** to detect private alleles within the population of interest as follows:
